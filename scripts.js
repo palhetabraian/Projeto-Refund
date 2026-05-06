@@ -5,8 +5,22 @@ const amount = document.getElementById('amount');
 
 //oninput propiedade que observa oque ta sendo digitado no input
 amount.oninput = () => {
-    // Removendo a letra
+    // Obtem o valor atual do input e remove os caracteres nao numericos.
     let value = amount.value.replace(/\D/g, '');
 
-    amount.value = value;
+    // Transforma o valor em centavos.
+    value = Number(value) / 100;
+
+    // atuyaliza o valor do input
+    amount.value = formatCurrencyBRL(value);
 };
+
+function formatCurrencyBRL(value) {
+    value = value.toLocaleString('pt-BR', {
+        // Formata o valor no padrao BRL (Real brasileiro)
+        style: 'currency',
+        currency: 'BRL',
+    });
+
+    return value;
+}
